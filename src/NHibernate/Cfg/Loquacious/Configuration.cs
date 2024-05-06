@@ -4,6 +4,7 @@ using NHibernate.Context;
 using NHibernate.Hql;
 using NHibernate.Linq;
 using NHibernate.Linq.Functions;
+using NHibernate.MultiTenancy;
 using NHibernate.Util;
 
 // ReSharper disable once CheckNamespace
@@ -82,6 +83,12 @@ namespace NHibernate.Cfg
 		public Configuration DataBaseIntegration(Action<DbIntegrationConfigurationProperties> dataBaseIntegration)
 		{
 			dataBaseIntegration(new DbIntegrationConfigurationProperties(this));
+			return this;
+		}
+
+		public Configuration MultiTenancy(Action<MultiTenancyConfigurationProperties> multiTenancyConfigurationProperties)
+		{
+			multiTenancyConfigurationProperties(new MultiTenancyConfigurationProperties(this));
 			return this;
 		}
 
@@ -175,6 +182,6 @@ namespace NHibernate.Cfg
 			namedQueryDefinition(builder);
 			NamedQueries.Add(queryIdentifier, builder.Build());
 			return this;
-		}
+		}		
 	}
 }

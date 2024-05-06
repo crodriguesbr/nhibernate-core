@@ -507,6 +507,8 @@ namespace NHibernate.Cfg
 
 			try
 			{
+				var multiTenancyProvider = conf
+
 				return (IMultiTenancyConnectionProvider)
 					Environment.ObjectsFactory.CreateInstance(System.Type.GetType(className, true));
 			}

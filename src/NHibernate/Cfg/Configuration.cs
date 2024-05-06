@@ -23,6 +23,7 @@ using NHibernate.Event;
 using NHibernate.Id;
 using NHibernate.Impl;
 using NHibernate.Mapping;
+using NHibernate.MultiTenancy;
 using NHibernate.Proxy;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Type;
@@ -73,6 +74,8 @@ namespace NHibernate.Cfg
 		protected ISet<ExtendsQueueEntry> extendsQueue;
 		protected IDictionary<string, Mappings.TableDescription> tableNameBinding;
 		protected IDictionary<Table, Mappings.ColumnNames> columnNameBindingPerTable;
+
+		protected IMultiTenancyConnectionProvider multiTenancyConnectionProvider;
 
 		private static readonly INHibernateLogger log = NHibernateLogger.For(typeof(Configuration));
 
@@ -2420,6 +2423,11 @@ namespace NHibernate.Cfg
 			}
 
 			return script.ToArray();
+		}
+
+		public void AddMultiTenancy(IMultiTenancyConnectionProvider multiTenancyConnectionProvider)
+		{
+			this.multiTenancyConnectionProvider = multiTenancyConnectionProvider;
 		}
 
 		public void ValidateSchema(Dialect.Dialect dialect, IDatabaseMetadata databaseMetadata)
